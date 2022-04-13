@@ -5,7 +5,6 @@
 #include "WinApp.h"
 #include "AxisIndicator.h"
 
-
 // Windowsアプリでのエントリーポイント(main関数)
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	WinApp* win = nullptr;
