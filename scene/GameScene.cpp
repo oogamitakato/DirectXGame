@@ -26,14 +26,22 @@ void GameScene::Initialize() {
 	soundDateHandle_ = audio_->LoadWave("se_sad03.wav");
 
 	//音楽再生
-	//audio_->PlayWave(soundDateHandle_);
-	voiceHandle_ = audio_->PlayWave(soundDateHandle_, true);
+	//voiceHandle_ = audio_->PlayWave(soundDateHandle_, true);
 
 	//スプライトの生成
 	sprite_ = Sprite::Create(textureHandle_, {100, 50});
 
 	//3Dモデルの生成
 	model_ = Model::Create();
+
+	//X,Y,Z方向のスケーリングを設定
+	worldTransform_.scale_ = {5.0f, 5.0f, 5.0f};
+
+	//X,Y,Z軸周りの回転角を設定
+	worldTransform_.rotation_ = {XM_PI / 4.0f, XM_PI / 4.0f, 0.0f};
+
+	//X,Y,Z軸周りの平行移動を設定
+	worldTransform_.translation_ = {10.0f, 10.0f, 10.0f};
 
 	//ワールドトランスフォームの初期化
 	worldTransform_.Initialize();
@@ -46,16 +54,14 @@ void GameScene::Update() {
 	
 	//スプライトの今の座標を取得
 	XMFLOAT2 position = sprite_->GetPosition();
-	//座標を{2,0}移動
-	position.x += 2.0f;
-	position.y += 1.0f;
+
 	//移動した座標をスプライトに反映
 	sprite_->SetPosition(position);
 
 	//変数の値をインクリメント
 	value_++;
 	//値を含んだ文字列
-	std::string strDebug = std::string("value:") + std::to_string(value_);
+	std::string strDebug = std::string("translation:") + std::to_string(worldTransform_.scale_.x);
 
 	//スペースキーを押した瞬間
 	if (input_->TriggerKey(DIK_SPACE)) {
@@ -64,7 +70,30 @@ void GameScene::Update() {
 	}
 
 	//デバックテキストの表示
-	debugText_->Print(strDebug, 50, 50, 1.0f);
+	//平行移動の表示
+	debugText_->SetPos(50, 70);
+	debugText_->Printf(
+	  "translation:(%f,%f,%f)",
+		worldTransform_.translation_.x,
+		worldTransform_.translation_.y,
+		worldTransform_.translation_.z
+	);
+	//回転角の表示
+	debugText_->SetPos(50, 90);
+	debugText_->Printf(
+	  "rocation:(%f,%f,%f)", 
+		worldTransform_.rotation_.x,
+		worldTransform_.rotation_.y,
+		worldTransform_.rotation_.z
+	);
+	//スケーリングの表示
+	debugText_->SetPos(50, 110);
+	debugText_->Printf(
+	  "scale:(%f,%f,%f)",
+		worldTransform_.scale_.x,
+		worldTransform_.scale_.y,
+		worldTransform_.scale_.z
+	);
 }
 
 void GameScene::Draw() {
@@ -107,7 +136,6 @@ void GameScene::Draw() {
 	/// <summary>
 	/// ここに前景スプライトの描画処理を追加できる
 	/// </summary>
-	sprite_->Draw();
 
 	// デバッグテキストの描画
 	debugText_->DrawAll(commandList);
