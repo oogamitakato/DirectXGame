@@ -69,10 +69,10 @@ void GameScene::Initialize() {
 	//viewProjection_.up = {cosf(XM_PI / 4.0f), sinf(XM_PI / 4.0f), 0.0f};
 
 	//カメラ垂直方向視野を設定
-	viewProjection_.fovAngleY = XMConvertToRadians(10.0f);
+	//viewProjection_.fovAngleY = XMConvertToRadians(10.0f);
 
 	//アスペクト比を設定
-	viewProjection_.aspectRatio = 1.0f;
+	//viewProjection_.aspectRatio = 1.0f;
 
 	//ニアクリップ距離を設定
 	viewProjection_.nearZ = 52.0f;
@@ -196,6 +196,19 @@ void GameScene::Update() {
 	}
 
 	//デバッグ用表示
+	debugText_->SetPos(50, 50);
+	debugText_->Printf(
+	  "eye:(%f,%f,%f)", viewProjection_.eye.x, viewProjection_.eye.y, viewProjection_.eye.z);
+
+	debugText_->SetPos(50, 70);
+	debugText_->Printf(
+	  "target:(%f,%f,%f)", viewProjection_.target.x, viewProjection_.target.y,
+	  viewProjection_.target.z);
+
+	debugText_->SetPos(50, 90);
+	debugText_->Printf(
+	  "up:(%f,%f,%f)", viewProjection_.up.x, viewProjection_.up.y, viewProjection_.up.z);
+
 	debugText_->SetPos(50, 110);
 	debugText_->Printf(
 	  "fovAngleY(Degree):%f", XMConvertToDegrees(viewProjection_.fovAngleY));
