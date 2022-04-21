@@ -108,11 +108,6 @@ void GameScene::Update() {
 
 		//行列の再計算
 		viewProjection_.UpdateMatrix();
-
-		//デバッグ用表示
-		debugText_->SetPos(50, 50);
-		debugText_->Printf(
-		  "eye:(%f,%f,%f)", viewProjection_.eye.x, viewProjection_.eye.y, viewProjection_.eye.z);
 	}
 
 	//注視点移動処理
@@ -137,10 +132,6 @@ void GameScene::Update() {
 
 		//行列の再計算
 		viewProjection_.UpdateMatrix();
-
-		debugText_->SetPos(50, 70);
-		debugText_->Printf(
-		  "target:(%f,%f,%f)", viewProjection_.target.x, viewProjection_.target.y, viewProjection_.target.z);
 	}
 
 	//上方向回転処理
@@ -161,14 +152,21 @@ void GameScene::Update() {
 		//行列の再計算
 		viewProjection_.UpdateMatrix();
 
-		//デバッグ用表示
-		debugText_->SetPos(50, 90);
-		debugText_->Printf(
-		  "up:(%f,%f,%f)", viewProjection_.up.x, viewProjection_.up.y,viewProjection_.up.z);
 	}
 
-	//デバックテキストの表示
+	//デバッグ用表示
+	debugText_->SetPos(50, 50);
+	debugText_->Printf(
+	  "eye:(%f,%f,%f)", viewProjection_.eye.x, viewProjection_.eye.y, viewProjection_.eye.z);
 
+	debugText_->SetPos(50, 70);
+	debugText_->Printf(
+	  "target:(%f,%f,%f)", viewProjection_.target.x, viewProjection_.target.y,
+	  viewProjection_.target.z);
+
+	debugText_->SetPos(50, 90);
+	debugText_->Printf(
+	  "up:(%f,%f,%f)", viewProjection_.up.x, viewProjection_.up.y, viewProjection_.up.z);
 }
 
 void GameScene::Draw() {
